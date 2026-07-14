@@ -1457,8 +1457,8 @@ id="nomeUsuario"
 placeholder="Seu nome">
 
 <input
-id="numeroUsuario"
-placeholder="Seu número">
+id="idUsuario"
+placeholder="Escolha um ID (Ex: TM3435)">
 
 <button onclick="entrarUsuario()">
 Entrar
@@ -1472,8 +1472,8 @@ src="https://i.imgur.com/2DhmtJ4.png">
 
 <h3 id="nomePerfilMenu">
 Cliente
-</h3><p id="numeroPerfilMenu">
-Número
+</h3><p id="IdPerfilMenu">
+ID
 </p></div><div class="itemMenu"
 onclick="abrirConta()">👤 Conta
 
@@ -2567,7 +2567,7 @@ const texto =
 
 "%0A" +
 
-"📱 Número: " + usuarioLogado.numero;
+"🆔 ID: " + usuarioLogado.id; 
 
 window.open(
 
@@ -2602,7 +2602,7 @@ const texto =
 
 "%0A" +
 
-"📱 Número: " + usuarioLogado.numero +
+"🆔 ID: " + usuarioLogado.id +
 
 "%0A%0A" +
 
@@ -3322,7 +3322,7 @@ id: Date.now(),
 
 nome: usuarioLogado.nome,
 
-numero: usuarioLogado.numero,
+numero: usuarioLogado.id,
 
 status: "PENDENTE",
 
@@ -3345,7 +3345,7 @@ JSON.stringify(pedido)
 
 db.ref(
 "compras/" +
-usuarioLogado.numero +
+usuarioLogado.id +
 "/" +
 pedido.id
 )
@@ -3448,7 +3448,7 @@ return;
 
 db.ref(
 "compras/" +
-usuarioLogado.numero +
+usuarioLogado.id +
 "/" +
 ultimoPedido.id
 ).update({
@@ -3487,7 +3487,7 @@ usuarioLogado.nome +
 "%0A" +
 
 "📱 Número: " +
-usuarioLogado.numero +
+usuarioLogado.id +
 
 "%0A%0A";
 
@@ -3531,7 +3531,7 @@ id: Date.now(),
 
 nome: usuarioLogado.nome,
 
-numero: usuarioLogado.numero,
+numero: usuarioLogado.ido,
 
 status: "PENDENTE",
 
@@ -3554,7 +3554,7 @@ JSON.stringify(pedido)
 
 db.ref(
 "compras/" +
-usuarioLogado.numero +
+usuarioLogado.id +
 "/" +
 pedido.id
 )
@@ -4309,7 +4309,7 @@ return;
 
 db.ref(
 "compras/" +
-usuarioLogado.numero
+usuarioLogado.id
 )
 .once("value")
 .then(snapshot=>{
@@ -4369,7 +4369,7 @@ nome:
 usuarioLogado.nome,
 
 numero:
-usuarioLogado.numero,
+usuarioLogado.id,
 
 foto:
 usuarioLogado.foto || "",
@@ -4803,25 +4803,18 @@ document.getElementById(
 "nomeUsuario"
 ).value.trim();
 
-const numero =
-document.getElementById(
-"numeroUsuario"
-).value.trim();
+const id =
+document.getElementById("idUsuario").value.trim().toUpperCase();
 
-if(!nome || !numero){
-
-alert("Preencha nome e número");
-
-return;
-
+if(!nome || !id){
+    alert("Preencha o nome e o ID");
+    return;
 }
 
 const usuario = {
-
-nome:nome,
-numero:numero,
-foto:"https://i.imgur.com/2DhmtJ4.png"
-
+    nome: nome,
+    id: id,
+    foto: "https://i.imgur.com/2DhmtJ4.png"
 };
 
 localStorage.setItem(
@@ -4852,10 +4845,8 @@ document.getElementById(
 ).innerText =
 usuarioLogado.nome;
 
-document.getElementById(
-"numeroPerfilMenu"
-).innerText =
-usuarioLogado.numero;
+document.getElementById("numeroPerfilMenu").innerText =
+"ID: " + usuarioLogado.id;
 
 document.getElementById(
 "fotoPerfilMenu"
@@ -4981,7 +4972,7 @@ return;
 
 db.ref(
 "compras/" +
-usuarioLogado.numero
+usuarioLogado.id
 )
 .once("value")
 .then(snapshot=>{
@@ -5061,7 +5052,7 @@ font-weight:bold;
 cursor:pointer;
 ">
 
-📄 Ver Pedido
+?? Ver Pedido
 
 </button>
 
@@ -5080,7 +5071,7 @@ function abrirPedidoCompra(id){
 
 db.ref(
 "compras/" +
-usuarioLogado.numero +
+usuarioLogado.id +
 "/" +
 id
 )
@@ -5115,7 +5106,7 @@ return;
 
 db.ref(
 "compras/" +
-usuarioLogado.numero +
+usuarioLogado.id +
 "/" +
 ultimoPedido.id
 ).on("value",snapshot=>{
